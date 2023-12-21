@@ -1,26 +1,34 @@
-import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-core';
+import { NativeModulesProxy, EventEmitter } from "expo-modules-core";
+import ExpoEnodeLinkSDKModule from "./ExpoEnodeLinkSDKModule";
 
-// Import the native module. On web, it will be resolved to ExpoEnodeLinkSDK.web.ts
-// and on native platforms to ExpoEnodeLinkSDK.ts
-import ExpoEnodeLinkSDKModule from './ExpoEnodeLinkSDKModule';
-import ExpoEnodeLinkSDKView from './ExpoEnodeLinkSDKView';
-import { ChangeEventPayload, ExpoEnodeLinkSDKViewProps } from './ExpoEnodeLinkSDK.types';
+type ResultCode =
+  | "success"
+  | "missingLinkToken"
+  | "malformedLinkToken"
+  | "dismissedViaDismissFunction"
+  | "cancelledByUser"
+  | "backendError"
+  | "earlyExitRequestedFromFrontend";
 
-// Get the native constant value.
-export const PI = ExpoEnodeLinkSDKModule.PI;
+type OnResultEvent = { code: ResultCode; errorMessage?: string };
 
-export function hello(): string {
-  return ExpoEnodeLinkSDKModule.hello();
+const onResultEventName = "OnResult";
+
+const emitter = new EventEmitter(
+  ExpoEnodeLinkSDKModule ?? NativeModulesProxy.ExpoEnodeLinkSDK
+);
+
+export function show(
+  token: string,
+  onResult: (code: ResultCode, errorMessage?: string) => void
+) {
+  emitter.removeAllListeners(onResultEventName);
+  emitter.addListener<OnResultEvent>(onResultEventName, (event) => {
+    onResult(event.code, event.errorMessage);
+    emitter.removeAllListeners(onResultEventName);
+  });
+
+  ExpoEnodeLinkSDKModule.show(token);
 }
 
-export async function setValueAsync(value: string) {
-  return await ExpoEnodeLinkSDKModule.setValueAsync(value);
-}
-
-const emitter = new EventEmitter(ExpoEnodeLinkSDKModule ?? NativeModulesProxy.ExpoEnodeLinkSDK);
-
-export function addChangeListener(listener: (event: ChangeEventPayload) => void): Subscription {
-  return emitter.addListener<ChangeEventPayload>('onChange', listener);
-}
-
-export { ExpoEnodeLinkSDKView, ExpoEnodeLinkSDKViewProps, ChangeEventPayload };
+export { ResultCode };
