@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android", "web"],
+  "ios": {
+    "modules": ["ExpoEnodeLinkSDKModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.enodelinksdk.ExpoEnodeLinkSDKModule"]
+  }
+}

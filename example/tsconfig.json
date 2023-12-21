@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-enode-link-sdk": ["../src/index"],
+      "expo-enode-link-sdk/*": ["../src/*"]
+    }
+  }
+}

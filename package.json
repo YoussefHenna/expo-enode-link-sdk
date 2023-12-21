@@ -1,0 +1,42 @@
+{
+  "name": "expo-enode-link-sdk",
+  "version": "0.1.0",
+  "description": "An Expo Module integration for Enode's Link SDK",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module",
+    "open:ios": "open -a \"Xcode\" example/ios",
+    "open:android": "open -a \"Android Studio\" example/android"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "expo-enode-link-sdk",
+    "ExpoEnodeLinkSDK"
+  ],
+  "repository": "https://github.com/YoussefHenna/expo-enode-link-sdk",
+  "bugs": {
+    "url": "https://github.com/YoussefHenna/expo-enode-link-sdk/issues"
+  },
+  "author": "Youssef Henna <youssef.hisham14@gmail.com> (https://github.com/YoussefHenna)",
+  "license": "MIT",
+  "homepage": "https://github.com/YoussefHenna/expo-enode-link-sdk#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^18.0.25",
+    "expo-module-scripts": "^3.0.11",
+    "expo-modules-core": "^1.5.11"
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}
