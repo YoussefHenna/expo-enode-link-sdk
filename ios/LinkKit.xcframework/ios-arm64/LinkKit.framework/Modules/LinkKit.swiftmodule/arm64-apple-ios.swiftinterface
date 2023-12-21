@@ -1,0 +1,85 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
+// swift-module-flags: -target arm64-apple-ios13.1 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name LinkKit
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CoreBluetooth
+import Foundation
+@_exported import LinkKit
+import Swift
+import SwiftUI
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum LinkResult {
+  case success
+  case failure(LinkKit.LinkError)
+}
+public typealias HumanReadableMessage = Swift.String
+public enum LinkError : Swift.Error {
+  case unknown
+  case missingLinkToken
+  case malformedLinkToken(LinkKit.MalformedLinkTokenError)
+  case dismissedViaDismissFunction
+  case cancelledByUser
+  case backendError(LinkKit.HumanReadableMessage)
+  case earlyExitRequestedFromFrontend(LinkKit.HumanReadableMessage?)
+}
+public enum MalformedLinkTokenError : Swift.Error {
+  case couldNotCreateDataFromTheToken
+  case couldNotParseJsonFromTheToken
+  case jsonDeserializationError(LinkKit.HumanReadableMessage)
+  case couldNotParseLinkUrlAndRedirectUriFromTheToken
+  case couldNotCreateURLFromLinkUrl
+  case couldNotFindHostFromLinkURL
+  case hostOfLinkURLIsNotEnodecomOrEnodeio
+}
+public enum LinkResultCode : Swift.String {
+  case success
+  case unknown
+  case missingLinkToken
+  case malformedLinkToken
+  case dismissedViaDismissFunction
+  case cancelledByUser
+  case backendError
+  case earlyExitRequestedFromFrontend
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias DismissLinkUIFunction = (() -> Swift.Void)
+@discardableResult
+public func show(fromViewController: UIKit.UIViewController, linkToken: Swift.String, completion: ((LinkKit.LinkResult) -> Swift.Void)? = nil) -> LinkKit.DismissLinkUIFunction
+@discardableResult
+public func show(fromViewController: UIKit.UIViewController, linkToken: Swift.String, completion: ((LinkKit.LinkResultCode, LinkKit.HumanReadableMessage?) -> Swift.Void)? = nil) -> LinkKit.DismissLinkUIFunction
+open class Handler {
+  public init(linkToken: Swift.String, completionHandler: ((LinkKit.LinkResult) -> Swift.Void)?)
+  public init(linkToken: Swift.String, completionHandler: ((LinkKit.LinkResultCode, LinkKit.HumanReadableMessage?) -> Swift.Void)?)
+  public func dismiss()
+  public func present(from viewController: UIKit.UIViewController)
+  @objc deinit
+}
+public struct LinkKitSheetModifier : SwiftUI.ViewModifier {
+  public init(isPresented: SwiftUI.Binding<Swift.Bool>, linkToken: Swift.String, completionHandler: ((LinkKit.LinkResult) -> Swift.Void)?)
+  @_Concurrency.MainActor(unsafe) public func body(content: LinkKit.LinkKitSheetModifier.Content) -> some SwiftUI.View
+  
+  public typealias Body = @_opaqueReturnTypeOf("$s7LinkKit0aB13SheetModifierV4body7contentQr7SwiftUI05_ViewD8_ContentVyACG_tF", 0) __
+}
+extension SwiftUI.View {
+  public func linkKitSheet(isPresented: SwiftUI.Binding<Swift.Bool>, linkToken: Swift.String, completionHandler: @escaping (LinkKit.LinkResult) -> Swift.Void) -> some SwiftUI.View
+  
+}
+public struct LinkKitSheet : SwiftUI.UIViewControllerRepresentable {
+  public init(linkToken: Swift.String, completionHandler: @escaping (LinkKit.LinkResult) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) public func makeUIViewController(context: LinkKit.LinkKitSheet.Context) -> UIKit.UIViewController
+  @_Concurrency.MainActor(unsafe) public func updateUIViewController(_ uiViewController: UIKit.UIViewController, context: LinkKit.LinkKitSheet.Context)
+  public typealias Body = Swift.Never
+  public typealias Coordinator = Swift.Void
+  public typealias UIViewControllerType = UIKit.UIViewController
+}
+extension LinkKit.LinkResultCode : Swift.Equatable {}
+extension LinkKit.LinkResultCode : Swift.Hashable {}
+extension LinkKit.LinkResultCode : Swift.RawRepresentable {}

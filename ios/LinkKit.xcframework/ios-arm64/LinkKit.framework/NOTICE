@@ -1,0 +1,12 @@
+
+Documentation of Changes to "WebBLE" (https://github.com/daphtdazz/WebBLE) used
+in this bundle.
+
+Original Library: WebBLE
+Author: David Park
+License: Apache License 2.0
+
+Changes to WebBLE:
+1. Reworked structure and minification of the JS files
+2. Skipped unused components
+3. Changed some of the global variables initialized by the JS code.

@@ -1,0 +1,5 @@
+/*global
+        atob, Event, nslog, uk, window
+*/
+// https://webbluetoothcg.github.io/web-bluetooth/ interface
+!function(){"use strict";const a=enode.wb,o=enode.wbutils;nslog("Create BluetoothDevice"),a.BluetoothDevice=function(t){o.EventTarget.call(this);var e={adData:{},deviceClass:t.deviceClass||0,id:t.id,gatt:new a.BluetoothRemoteGATTServer(this),productId:t.productId||0,productVersion:t.productVersion||0,uuids:t.uuids,vendorId:t.vendorId||0,vendorIdSource:t.vendorIdSource||"bluetooth"};o.defineROProperties(this,e),this.name=t.name,t.adData&&(this.adData.appearance=t.adData.appearance||"",this.adData.txPower=t.adData.txPower||0,this.adData.rssi=t.adData.rssi||0,this.adData.manufacturerData=t.adData.manufacturerData||[],this.adData.serviceData=t.adData.serviceData||[])},a.BluetoothDevice.prototype={toString:function(){return`BluetoothDevice(${this.id.slice(0,10)})`},handleSpontaneousDisconnectEvent:function(){this.gatt.connected&&(this.gatt.connected=!1,this.dispatchEvent(new a.BluetoothEvent("gattserverdisconnected",this)))}},o.mixin(a.BluetoothDevice,o.EventTarget)}();
