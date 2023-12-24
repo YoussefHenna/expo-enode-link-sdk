@@ -21,7 +21,10 @@ public class ExpoEnodeLinkSDKModule: Module {
         ])
       }
 
-      self.handler?.present(from: currentVc!)
+      DispatchQueue.main.async { () -> Void in
+        self.handler?.present(from: currentVc!)
+      }
+      
     }
   }
 }
