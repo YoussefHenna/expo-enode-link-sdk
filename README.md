@@ -29,3 +29,25 @@ The enode SDK uses bluetooth and therefore you need to add this in your app's `a
   "NSBluetoothAlwaysUsageDescription": "Our app requires Bluetooth to connect with energy devices, enabling efficient device management and enhanced user experience."
 }
 ```
+
+## Usage
+Import the package
+```ts
+import * as ExpoEnodeLinkSDK from "@youssefhenna/expo-enode-link-sdk";
+```
+Listen to the result events by:
+```tsx
+React.useEffect(() => {
+  const resultListener = ExpoEnodeLinkSDK.listenToResult(
+    (code, errorMessage) => {
+      // Add your code here to handle the result
+    }
+  );
+  return () => resultListener.remove();
+}, []);
+```
+
+Launch/Show the Enode Link UI
+```ts
+ExpoEnodeLinkSDK.show("<YOUR_TOKEN_HERE>")
+```
