@@ -19,16 +19,17 @@ const emitter = new EventEmitter(
   ExpoEnodeLinkSDKModule ?? NativeModulesProxy.ExpoEnodeLinkSDK
 );
 
-export function show(
-  token: string,
+export function listenToResult(
   onResult: (code: ResultCode, errorMessage?: string) => void
 ) {
-  emitter.removeAllListeners(ON_RESULT_EVENT_NAME);
-  emitter.addListener<OnResultEvent>(ON_RESULT_EVENT_NAME, (event) => {
-    onResult(event.code, event.errorMessage);
-    emitter.removeAllListeners(ON_RESULT_EVENT_NAME);
-  });
+  const listener = emitter.addListener<OnResultEvent>(
+    ON_RESULT_EVENT_NAME,
+    (event) => onResult(event.code, event.errorMessage)
+  );
+  return { remove: () => listener.remove() };
+}
 
+export function show(token: string) {
   ExpoEnodeLinkSDKModule.show(token);
 }
 
