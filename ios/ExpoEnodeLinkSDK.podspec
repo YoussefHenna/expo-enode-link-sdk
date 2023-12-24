@@ -16,7 +16,6 @@ Pod::Spec.new do |s|
   s.static_framework = true
 
   s.dependency 'ExpoModulesCore'
-  s.vendored_frameworks='Frameworks/LinkKit.xcframework'
 
   # Swift/Objective-C compatibility
   s.pod_target_xcconfig = {
@@ -24,5 +23,6 @@ Pod::Spec.new do |s|
     'SWIFT_COMPILATION_MODE' => 'wholemodule'
   }
   
-  s.source_files = "**/*.{h,m,swift}"
+  s.source_files = ".{h,m,swift}"
+  s.vendored_frameworks='Frameworks/LinkKit.xcframework'
 end
