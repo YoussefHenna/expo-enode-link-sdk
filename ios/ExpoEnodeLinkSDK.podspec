@@ -17,12 +17,18 @@ Pod::Spec.new do |s|
 
   s.dependency 'ExpoModulesCore'
 
+  s.source_files = "**/*.{h,c,m,swift}"
+  s.exclude_files = ["Frameworks/*.xcframework/**/*.h"]
+  s.preserve_paths = [
+    "Frameworks/*.xcframework",
+    "**/*.h",
+    "Frameworks/*.xcframework/**/*.h"
+  ]
+  s.vendored_frameworks='Frameworks/LinkKit.xcframework'
+
   # Swift/Objective-C compatibility
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
     'SWIFT_COMPILATION_MODE' => 'wholemodule'
   }
-  
-  s.source_files = ".{h,m,swift}"
-  s.vendored_frameworks='Frameworks/LinkKit.xcframework'
 end
