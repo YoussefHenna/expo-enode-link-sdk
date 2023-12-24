@@ -31,6 +31,10 @@ The enode SDK uses bluetooth and therefore you need to add this in your app's `a
 ```
 
 ## Usage
+Install the package
+```
+npx expo install @youssefhenna/expo-enode-link-sdk
+```
 Import the package
 ```ts
 import * as ExpoEnodeLinkSDK from "@youssefhenna/expo-enode-link-sdk";
