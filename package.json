@@ -1,5 +1,5 @@
 {
-  "name": "expo-enode-link-sdk",
+  "name": "@youssefhenna/expo-enode-link-sdk",
   "version": "0.1.0",
   "description": "An Expo Module integration for Enode's Link SDK",
   "main": "build/index.js",
