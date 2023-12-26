@@ -19,7 +19,10 @@ The Enode SDK requires Android SDK version 34+ and the minimum SDK 23+. It is re
   }
 ]
 ```
-
+If not already installed, you'll also need to install `expo-build-properties`
+```
+npx expo install expo-build-properties
+```
 ## IOS
 
 The enode SDK uses bluetooth and therefore you need to add this in your app's `app.json` under `ios`.
