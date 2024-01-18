@@ -9,6 +9,7 @@ type ResultCode =
   | "cancelledByUser"
   | "backendError"
   | "earlyExitRequestedFromFrontend"
+  | "permissionError"
   | "unknownError";
 
 type OnResultEvent = { code: ResultCode; errorMessage?: string };
