@@ -89,5 +89,5 @@ repositories {
 dependencies {
   implementation project(':expo-modules-core')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
-  implementation("io.enode:linkkit:0.8.3")
+  implementation("io.enode:linkkit:0.9.1")
 }
