@@ -3,6 +3,7 @@
 An Expo Module integration for Enode's Link SDK
 
 ## Android
+
 > [!NOTE]  
 > This step is no longer required if using Expo 50+. The new default is 34
 
@@ -42,6 +43,43 @@ The enode SDK uses bluetooth and therefore you need to add this in your app's `a
   },
   // your other ios configuration, if any
 }
+```
+
+Additionally the Enode SDK requires iOS deployment target 14+. It is required to add this to your app's `app.json` under `plugins`.
+
+```json
+"plugins": [
+  [
+    "expo-build-properties",
+    {
+      "ios": {
+        "deploymentTarget": "14.0"
+      }
+    }
+  ],
+  // your other plugins, if any
+]
+```
+
+This is the same plugin used in the Android config and not a seperate one. The final config of this plugin should look something like this:
+
+```json
+"plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 23,
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0"
+          },
+          "ios": {
+            "deploymentTarget": "14.0"
+          }
+        }
+      ]
+    ]
 ```
 
 ## Usage
