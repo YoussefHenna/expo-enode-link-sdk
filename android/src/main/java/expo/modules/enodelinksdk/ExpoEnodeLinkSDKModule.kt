@@ -8,6 +8,8 @@ import io.enode.link.LinkKit
 import android.content.Intent;
 import android.app.Activity;
 import android.Manifest
+import android.os.Build
+import android.Manifest.permission.BLUETOOTH
 import android.Manifest.permission.BLUETOOTH_SCAN
 import android.Manifest.permission.BLUETOOTH_CONNECT
 import android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -28,15 +30,26 @@ class ExpoEnodeLinkSDKModule : Module() {
     Function("show") { token: String ->
       val permissions = appContext.permissions ?: throw ModuleNotFoundException("Permissions")
 
+      val requiredPermissions = if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+        listOf(
+          BLUETOOTH,
+          ACCESS_FINE_LOCATION,
+        )
+      } else {
+        listOf(
+          ACCESS_FINE_LOCATION,
+          BLUETOOTH_SCAN,
+          BLUETOOTH_CONNECT
+        )
+      }
+
       permissions.askForPermissions(
         { permissionsResponse ->
-          if (permissionsResponse[ACCESS_FINE_LOCATION]?.status != PermissionsStatus.GRANTED ||
-              permissionsResponse[BLUETOOTH_SCAN]?.status != PermissionsStatus.GRANTED ||
-              permissionsResponse[BLUETOOTH_CONNECT]?.status != PermissionsStatus.GRANTED
-            ) {
+          val permissionsNotAllowed = requiredPermissions.any { permissionsResponse[it]?.status != PermissionsStatus.GRANTED  }
+          if (permissionsNotAllowed) {
             sendEvent(ON_RESULT_EVENT_NAME, mapOf(
               "code" to "permissionError",
-              "errorMessage" to "One or more of the required permissions are missing or not granted (ACCESS_FINE_LOCATION, BLUETOOTH_SCAN, BLUETOOTH_CONNECT)"
+              "errorMessage" to "One or more of the required permissions are missing or not granted (${requiredPermissions.joinToString(",")})"
               )
             )
           } else {
@@ -46,11 +59,7 @@ class ExpoEnodeLinkSDKModule : Module() {
             activity.startActivityForResult(intent, LINK_UI_REQUEST_CODE, null)
           }
         },
-        *listOf(
-          ACCESS_FINE_LOCATION,
-          BLUETOOTH_SCAN,
-          BLUETOOTH_CONNECT
-        ).toTypedArray()
+        *requiredPermissions.toTypedArray()
       )
     }
 
