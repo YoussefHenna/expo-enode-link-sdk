@@ -7,7 +7,7 @@ An Expo Module integration for Enode's Link SDK
 > [!NOTE]  
 > This step is no longer required if using Expo 50+. The new default is 34
 
-The Enode SDK requires Android SDK version 34+ and the minimum SDK 23+. It is required to add this to your app's `app.json` under `plugins`.
+The Enode SDK requires Android SDK version 34+ and the minimum SDK 24+. It is required to add this to your app's `app.json` under `plugins`.
 
 ```json
 "plugins": [
@@ -15,7 +15,7 @@ The Enode SDK requires Android SDK version 34+ and the minimum SDK 23+. It is re
     "expo-build-properties",
     {
       "android": {
-        "minSdkVersion": 23,
+        "minSdkVersion": 24,
         "compileSdkVersion": 34,
         "targetSdkVersion": 34,
         "buildToolsVersion": "34.0.0"
