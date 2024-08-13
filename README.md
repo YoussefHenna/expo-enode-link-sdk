@@ -69,7 +69,7 @@ This is the same plugin used in the Android config and not a seperate one. The f
         "expo-build-properties",
         {
           "android": {
-            "minSdkVersion": 23,
+            "minSdkVersion": 24,
             "compileSdkVersion": 34,
             "targetSdkVersion": 34,
             "buildToolsVersion": "34.0.0"
