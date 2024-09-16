@@ -29,6 +29,18 @@ If not already installed, you'll also need to install `expo-build-properties`
 npx expo install expo-build-properties
 ```
 
+### App theme
+
+Enode's link sdk uses the MaterialComponents android app theme, `expo-enode-link-sdk` provides an expo plugin for setting the android app theme. Add the following to your `app.json`
+
+```json
+"plugins": [
+    [
+        "@youssefhenna/expo-enode-link-sdk", "Theme.MaterialComponents.DayNight.NoActionBar"
+    ]
+]
+```
+
 ## IOS
 
 The enode SDK uses bluetooth and therefore you need to add this in your app's `app.json` under `ios`.
@@ -100,7 +112,7 @@ React.useEffect(() => {
   const resultListener = ExpoEnodeLinkSDK.listenToResult(
     (code, errorMessage) => {
       // Add your code here to handle the result
-    }
+    },
   );
   return () => resultListener.remove();
 }, []);
