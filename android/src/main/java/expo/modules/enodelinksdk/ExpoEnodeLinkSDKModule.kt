@@ -3,7 +3,7 @@ package expo.modules.enodelinksdk
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import expo.modules.interfaces.permissions.PermissionsStatus
-import expo.modules.core.errors.ModuleNotFoundException
+import expo.modules.kotlin.exception.Exceptions
 import io.enode.link.LinkKit
 import android.content.Intent;
 import android.app.Activity;
@@ -28,7 +28,7 @@ class ExpoEnodeLinkSDKModule : Module() {
     Events(ON_RESULT_EVENT_NAME)
 
     Function("show") { token: String ->
-      val permissions = appContext.permissions ?: throw ModuleNotFoundException("Permissions")
+      val permissions = appContext.permissions ?: throw Exceptions.PermissionsModuleNotFound()
 
       val requiredPermissions = if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
         listOf(

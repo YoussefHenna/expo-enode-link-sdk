@@ -12,8 +12,6 @@ public class ExpoEnodeLinkSDKModule: Module {
     Events(ExpoEnodeLinkSDKModule.ON_RESULT_EVENT_NAME)
 
     Function("show") { (token: String) in
-      let currentVc = appContext?.utilities?.currentViewController()!
-
       self.handler = Handler(linkToken: token) { (code: LinkResultCode, errorMessage: String?) in
         self.sendEvent(ExpoEnodeLinkSDKModule.ON_RESULT_EVENT_NAME, [
           "code": code.rawValue,
@@ -22,9 +20,10 @@ public class ExpoEnodeLinkSDKModule: Module {
       }
 
       DispatchQueue.main.async { () -> Void in
-        self.handler?.present(from: currentVc!)
+        guard let currentVc = self.appContext?.utilities?.currentViewController() else { return }
+        self.handler?.present(from: currentVc)
       }
-      
+
     }
   }
 }
